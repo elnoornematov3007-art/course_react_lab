@@ -8,7 +8,8 @@ const person = {
     theme: {
       backgroundColor: 'black',
       color: 'pink'
-    }
+    },
+    imageUrl: "GregorioYZara.jpg"
   };
   
   export default function TodoList() {
@@ -17,7 +18,7 @@ const person = {
         <h1>{person.name}'s Todos</h1>
         <img
           className="avatar"
-          src="GregorioYZara.jpg"
+          src={person.imageUrl}
           alt="Gregorio Y. Zara"
         />
         <ul>
