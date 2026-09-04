@@ -13,10 +13,12 @@ export type Person = {
 };
 
 function Avatar({ person, size }: { person: Person; size: number }) {
+  const imageSize = size < 90 ? "s" : "b";
+
   return (
     <img
       className="avatar"
-      src={getImageUrl(person, "b")}
+      src={getImageUrl(person, imageSize)}
       alt={person.name}
       width={size}
       height={size}
@@ -25,13 +27,22 @@ function Avatar({ person, size }: { person: Person; size: number }) {
 }
 
 export default function Profile() {
+  const person = {
+    name: "Gregorio Y. Zara",
+    imageId: "7vQD0fP",
+  };
+
   return (
-    <Avatar
-      size={40}
-      person={{
-        name: "Gregorio Y. Zara",
-        imageId: "GregorioYZara",
-      }}
-    />
+    <>
+      <Avatar
+        size={40}
+        person={person}
+      />
+
+      <Avatar
+        size={120}
+        person={person}
+      />
+    </>
   );
 }
