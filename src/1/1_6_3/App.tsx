@@ -1,27 +1,31 @@
-// 1_6_3 Refactor a series of ? : to if and variables 
-/*
-Этот компонент Drink использует серию ? : условий для отображения различной информации в зависимости от того, является ли name пропс "чай" или "кофе". Проблема в том, что информация о каждом напитке распределена по нескольким условиям. Переработайте этот код, чтобы использовать один оператор if вместо трех ? : условий.
-*/
+// 1_6_3 Refactor a series of ? : to if and variables
 
 function Drink({ name }: { name: string }) {
-  return (
+
+    let part;
+    let caffeine;
+    let age;
+
+    if (name === 'tea') {
+        part = 'leaf';
+        caffeine = '15–70 mg/cup';
+        age = '4,000+ years';
+    } else {
+        part = 'bean';
+        caffeine = '80–185 mg/cup';
+        age = '1,000+ years';
+    }
+
+return (
       <section>
           <h1>{name}</h1>
           <dl>
               <dt>Part of plant</dt>
-              <dd>{name === 'tea' ? 'leaf' : 'bean'}</dd>
+              <dd>{part}</dd>
               <dt>Caffeine content</dt>
-              <dd>
-                  {name === 'tea'
-                      ? '15–70 mg/cup'
-                      : '80–185 mg/cup'}
-              </dd>
+              <dd>{caffeine}</dd>
               <dt>Age</dt>
-              <dd>
-                  {name === 'tea'
-                      ? '4,000+ years'
-                      : '1,000+ years'}
-              </dd>
+              <dd>{age}</dd>
           </dl>
       </section>
   );
