@@ -17,7 +17,15 @@ export type Person = {
 }
 
 export default function List() {
-    const listItems = people.map((person) => (
+    const chemists = people.filter(
+        (person) => person.profession === 'chemist'
+    );
+    
+    const notChemists = people.filter(
+        (person) => person.profession !== 'chemist'
+    );
+
+    const listItemsOne = chemists.map((person) => (
         <li key={person.id}>
             <img
                 src={getImageUrl(person)}
@@ -30,10 +38,28 @@ export default function List() {
             </p>
         </li>
     ));
+
+    const listItemsTwo = notChemists.map((person) => (
+        <li key={person.id}>
+            <img
+                src={getImageUrl(person)}
+                alt={person.name}
+            />
+            <p>
+                <b>{person.name}:</b>
+                {' ' + person.profession + ' '}
+                known for {person.accomplishment}
+            </p>
+        </li>
+    ));
+
     return (
         <article>
             <h1>Scientists</h1>
-            <ul>{listItems}</ul>
+            <h2>Chemists</h2>
+            <ul>{listItemsOne}</ul>
+            <h2>Everyone Else</h2>
+            <ul>{listItemsTwo}</ul>
         </article>
     );
 }
