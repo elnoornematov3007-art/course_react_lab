@@ -5,6 +5,14 @@
     Ваша задача — исправить все эти ошибки. Исправляя их, объясните, почему происходит каждая из них.
 */
 
+/*
+Первая ошибка: player.score++ напрямую изменяет объект player, но React не видит такое изменение state и не обновляет страницу. Поэтому нужно использовать setPlayer.
+
+Вторая ошибка: при изменении имени React перерисовывает компонент, и поэтому ранее изменённая напрямую оценка внезапно становится видна.
+
+Третья ошибка: при изменении фамилии создаётся новый объект только с lastName, поэтому firstName и score теряются. Нужно скопировать остальные свойства с помощью ...player.
+*/
+
 import { useState } from 'react';
 
 export default function Scoreboard() {
@@ -15,7 +23,10 @@ export default function Scoreboard() {
     });
 
     function handlePlusClick() {
-        player.score++;
+        setPlayer({
+            ...player,
+            score: player.score + 1,
+        });
     }
 
     function handleFirstNameChange(e: any) {
@@ -27,8 +38,9 @@ export default function Scoreboard() {
 
     function handleLastNameChange(e: any) {
         setPlayer({
+            ...player,
             lastName: e.target.value,
-        } as any);
+        });
     }
 
     return (
