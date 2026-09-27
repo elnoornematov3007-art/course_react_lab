@@ -7,19 +7,20 @@ import { useState } from 'react';
 
 export default function FeedbackForm() {
     const [isSent, setIsSent] = useState(false);
+    const [message, setMessage] = useState('');
+
+    function handleSubmit(e: any) {
+        e.preventDefault();
+        alert(`Sending: "${message}"`);
+        setIsSent(true);
+    }
+
     if (isSent) {
         return <h1>Thank you!</h1>;
     } else {
         // eslint-disable-next-line
-        const [message, setMessage] = useState('');
         return (
-            <form
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    alert(`Sending: "${message}"`);
-                    setIsSent(true);
-                }}
-            >
+            <form onSubmit={handleSubmit}>
                 <textarea
                     placeholder="Message"
                     value={message}
