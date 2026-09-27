@@ -7,6 +7,11 @@
     Найдите ошибку и исправьте ее.
 */
 
+/*
+Потому что shape.position и initialPosition ссылаются на один и тот же объект.
+При перемещении ящика меняется этот объект, поэтому после обновления цвета фон тоже получает изменённую позицию.
+*/
+
 import { useState } from 'react';
 import Background from './Background';
 import Box from './Box';
@@ -25,8 +30,13 @@ export default function Canvas() {
     });
 
     function handleMove(dx: number, dy: number) {
-        shape.position.x += dx;
-        shape.position.y += dy;
+        setShape({
+            ...shape,
+            position: {
+                x: shape.position.x + dx,
+                y: shape.position.y + dy,
+            },
+        });
     }
 
     function handleColorChange(e: any) {
