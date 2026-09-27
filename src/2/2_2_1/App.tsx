@@ -17,6 +17,10 @@ export default function Gallery() {
         setIndex(index + 1);
     }
 
+    function handlePreviousClick() {
+        setIndex(index - 1);
+    }
+
     function handleMoreClick() {
         setShowMore(!showMore);
     }
@@ -24,7 +28,12 @@ export default function Gallery() {
     let sculpture = sculptureList[index];
     return (
         <>
-            <button onClick={handleNextClick}>Next</button>
+            <button onClick={handlePreviousClick} disabled={index === 0}>
+                Previous
+            </button>
+            <button onClick={handleNextClick} disabled={index === sculptureList.length - 1}>
+                Next
+            </button>
             <h2>
                 <i>{sculpture.name} </i>
                 by {sculpture.artist}
