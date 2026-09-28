@@ -7,7 +7,7 @@
     На этот раз исправьте мутацию, используя Immer. Для вашего удобства функция useImmer уже импортирована, поэтому вам нужно изменить переменную состояния shape, чтобы использовать ее.
 */
 
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useImmer } from 'use-immer';
 import Background from './Background';
 import Box from './Box';
