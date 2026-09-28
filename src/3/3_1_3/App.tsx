@@ -7,9 +7,37 @@
     Представьте, что React не существует. Можете ли вы переделать код в index.js таким образом, чтобы сделать логику менее хрупкой и более похожей на версию React? Как бы это выглядело, если бы состояние было явным, как в React?
 */
 
+import { useState } from 'react';
 
 export default function EditProfile() {
+    const [edit, setEdit] = useState(false);
+    const [name, setName] = useState('Jane');
+    const [surname, setSurname] = useState('Jacobs');
     return (
-        <div></div>
+        <form onSubmit={e => {
+            e.preventDefault();
+            setEdit(!edit);
+        }}>
+            <label>
+                Имя:{' '}
+                {edit
+                    ? <input value={name} onChange={e => setName(e.target.value)} />
+                    : <b>{name}</b>}
+            </label>
+            <label>
+                Фамилия:{' '}
+                {edit
+                ? <input value={surname} onChange={e => setSurname(e.target.value)} />
+                : <b>{surname}</b>}
+            </label>
+
+            <button>
+                {edit ? 'Сохранить' : 'Редактировать'}
+            </button>
+
+            <p>
+                Привет, {name} {surname}!
+            </p>
+        </form>
     );
 }
