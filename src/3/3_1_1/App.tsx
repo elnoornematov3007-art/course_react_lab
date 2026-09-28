@@ -5,11 +5,27 @@
     Визуально вы должны увидеть, что щелчок на изображении удаляет фиолетовый фон и выделяет границу изображения. Щелчок за пределами изображения выделяет фон, но убирает выделение границы изображения.
 */
 
+import { useState } from 'react';
+
 export default function Picture() {
+    const [isActive, setIsActive] = useState(false);
+
+    function handlePictureClick(e: React.MouseEvent) {
+        e.stopPropagation();
+        setIsActive(true);
+    }
+
+    function handleBackgroundClick() {
+        setIsActive(false);
+    }
     return (
-        <div className="background background--active">
+        <div 
+            className={isActive ? "background" : "background background--active"}
+            onClick={handleBackgroundClick}
+        >
             <img
-                className="picture"
+                className={isActive ? "picture picture--active" : "picture"}
+                onClick={handlePictureClick}
                 alt="Rainbow houses in Kampung Pelangi, Indonesia"
                 src="/5qwVYb1.jpg"
             />
