@@ -11,14 +11,23 @@ import { letters } from './data.js';
 import Letter from './Letter.js';
 
 export default function MailClient() {
-  const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [selectedId, setSelectedId] = useState<number[]>([]);
 
   // TODO: allow multiple selection
-  const selectedCount = 1;
+  const selectedCount = selectedId.length;
 
   function handleToggle(toggledId: number) {
     // TODO: allow multiple selection
-    setSelectedId(toggledId);
+    if (selectedId.includes(toggledId)) {
+      setSelectedId(
+        selectedId.filter(id => id !== toggledId)
+      );
+    } else {
+      setSelectedId([
+        ...selectedId,
+        toggledId,
+      ]);
+    }
   }
 
   return (
@@ -31,7 +40,7 @@ export default function MailClient() {
             letter={letter}
             isSelected={
               // TODO: allow multiple selection
-              letter.id === selectedId
+              selectedId.includes(letter.id)
             }
             onToggle={handleToggle}
           />
