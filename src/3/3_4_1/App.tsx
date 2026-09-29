@@ -7,26 +7,17 @@ import { useState } from 'react';
 
 export default function App() {
   const [showHint, setShowHint] = useState(false);
-  if (showHint) {
     return (
       <div>
-        <p><i>Hint: Your favorite city?</i></p>
         <Form />
+        {showHint && <p>Hint: Your favorite city?</p>}
         <button onClick={() => {
-          setShowHint(false);
-        }}>Hide hint</button>
+          setShowHint(!showHint);
+        }}>{showHint ? 'Hide hint' : 'Show hint'}
+        </button>
       </div>
     );
   }
-  return (
-    <div>
-      <Form />
-      <button onClick={() => {
-        setShowHint(true);
-      }}>Show hint</button>
-    </div>
-  );
-}
 
 function Form() {
   const [text, setText] = useState('');
@@ -37,4 +28,6 @@ function Form() {
     />
   );
 }
+
+
 
