@@ -11,28 +11,34 @@ import { useState } from 'react';
 import { foods, filterItems, Item } from './data';
 
 export default function FilterableList() {
+  const [query, setQuery] = useState('');
+  const filteredFoods = filterItems(foods, query);
   return (
     <>
-      <SearchBar />
+      <SearchBar 
+        query={query}
+        onChange={setQuery}
+      />
       <hr />
-      <List items={foods} />
+      <List items={filteredFoods} />
     </>
   );
 }
 
-function SearchBar() {
-  const [query, setQuery] = useState('');
-
-  function handleChange(e: any) {
-    setQuery(e.target.value);
-  }
+function SearchBar( {
+  query,
+  onChange,
+}: {
+  query: string;
+  onChange: (query: string) => void;
+}) {
 
   return (
     <label>
       Search:{' '}
       <input
         value={query}
-        onChange={handleChange}
+        onChange={event => onChange(event.target.value)}
       />
     </label>
   );
@@ -41,6 +47,12 @@ function SearchBar() {
 function List({ items }: { items: Item[] }) {
   return (
     <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Description</th>
+        </tr>
+      </thead>
       <tbody>
         {items.map(food => (
           <tr key={food.id}>
