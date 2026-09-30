@@ -7,18 +7,30 @@
   Почему кнопки мешают друг другу? Найдите и устраните проблему.
 */
 
-let timeoutID: number | undefined;
+/*
+Все кнопки использовали одну общую переменную timeoutID.
+Поэтому нажатие одной кнопки могло отменить таймер другой. useRef даёт каждой кнопке свой собственный таймер.
+*/
+
+import { useRef } from 'react';
 
 function DebouncedButton({ onClick, children }: {
   onClick: () => void, children: React.ReactNode
 }) {
+  let timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleClick() {
+    if (timeoutRef.current !== null) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      onClick();
+    }, 1000);
+  }
+
   return (
-    <button onClick={() => {
-      clearTimeout(timeoutID);
-      timeoutID = setTimeout(() => {
-        onClick();
-      }, 1000);
-    }}>
+    <button onClick={handleClick}>
       {children}
     </button>
   );
