@@ -9,10 +9,17 @@ import { useState, useRef } from 'react';
 
 export default function VideoPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const vRef = useRef<HTMLVideoElement>(null);
 
   function handleClick() {
     const nextIsPlaying = !isPlaying;
     setIsPlaying(nextIsPlaying);
+
+    if (isPlaying) {
+      vRef.current?.pause();
+    } else {
+      vRef.current?.play();
+    }
   }
 
   return (
@@ -20,7 +27,13 @@ export default function VideoPlayer() {
       <button onClick={handleClick}>
         {isPlaying ? 'Pause' : 'Play'}
       </button>
-      <video width="250">
+      <video 
+        width="250"
+        ref={vRef}
+        controls
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      >
         <source
           src="flower.mp4"
           type="video/mp4"
