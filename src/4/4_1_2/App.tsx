@@ -2,16 +2,19 @@
 /*
   Эта кнопка должна переключаться между отображением "Вкл" и "Выкл". Однако она всегда показывает "Выкл". Что не так с этим кодом? Исправьте это.
 */
-import { useRef } from 'react';
+
+import { useState } from 'react';
 
 export default function Toggle() {
-  const isOnRef = useRef(false);
+  const [isOn, setIsOn] = useState(false);
+
+  function handleClick() {
+    setIsOn(!isOn);
+  }
 
   return (
-    <button onClick={() => {
-      isOnRef.current = !isOnRef.current;
-    }}>
-      {isOnRef.current ? 'Вкл' : 'Выкл'}
+    <button onClick={handleClick}>
+      {isOn ? 'Вкл' : 'Выкл'}
     </button>
   );
 }
